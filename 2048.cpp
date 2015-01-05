@@ -20,6 +20,7 @@ using namespace std;
 const int START_LINE = 3;
 int score;
 int highScore = 0;
+int boardStartX;
 FILE *f;
 
 bool gameOver();
@@ -32,6 +33,9 @@ void finish();
 
 class Tile {
   public:
+    int x;
+    int y;
+
     Tile(){
       this->setValue( 0 );
     }
@@ -51,7 +55,33 @@ class Tile {
     Tile copy() {
       Tile t;
       t.setValue( this->getValue() );
+      t.x = this->x;
+      t.y = this->y;
       return t;
+    }
+
+    void draw(){
+      int squareStartY = START_LINE + this->y*3;
+      int squareStartX = boardStartX + this->x*6;
+
+      move(squareStartY, squareStartX);
+      addch(ACS_ULCORNER);
+      addch(ACS_HLINE);
+      addch(ACS_HLINE);
+      addch(ACS_HLINE);
+      addch(ACS_HLINE);
+      addch(ACS_URCORNER);
+      mvaddch(squareStartY +1, squareStartX, ACS_VLINE);
+
+      mvprintw(squareStartY +1, squareStartX +1, "%s", this->toString().c_str());
+      mvaddch(squareStartY +1, squareStartX +5, ACS_VLINE);
+      move(squareStartY +2, squareStartX);
+      addch(ACS_LLCORNER);
+      addch(ACS_HLINE);
+      addch(ACS_HLINE);
+      addch(ACS_HLINE);
+      addch(ACS_HLINE);
+      addch(ACS_LRCORNER);
     }
 
     string toString() {
@@ -96,6 +126,8 @@ class Grid {
       for(int i = 0; i < 4; i++) {
         for(int j = 0; j < 4; j++) {
           Tile t = Tile(0);
+          t.x = i;
+          t.y = j;
           board[i][j] = t;
         }
       }
@@ -365,7 +397,7 @@ void loadScoreData() {
 }
 
 void printGameOverMessage() {
-  int boardStartX = getmaxx(stdscr)/2 - 12;
+  boardStartX = getmaxx(stdscr)/2 - 12;
 
   move( START_LINE + 3, boardStartX );
   addch(ACS_ULCORNER);
@@ -419,36 +451,16 @@ void newGame() {
 void printBoard() {
   clear();
 
-  int boardStartX = getmaxx(stdscr)/2 - 12;
+  boardStartX = getmaxx(stdscr)/2 - 12;
 
   mvprintw( 0, boardStartX + 10, "Score: %6i", score);
   mvprintw( 1, boardStartX + 1, "2048      Best: %6i", highScore);
 
-  for (int i = 0; i < NUM_TILES; i++) {
-    int row = i/4;
-    int col = i%4;
-    int squareStartY = START_LINE + row*3;
-    int squareStartX = boardStartX + col*6;
-    Tile currentTile = playGrid.tileAt(col, row);
-
-    move(squareStartY, squareStartX);
-    addch(ACS_ULCORNER);
-    addch(ACS_HLINE);
-    addch(ACS_HLINE);
-    addch(ACS_HLINE);
-    addch(ACS_HLINE);
-    addch(ACS_URCORNER);
-    mvaddch(squareStartY +1, squareStartX, ACS_VLINE);
-
-    mvprintw(squareStartY +1, squareStartX +1, "%s", currentTile.toString().c_str());
-    mvaddch(squareStartY +1, squareStartX +5, ACS_VLINE);
-    move(squareStartY +2, squareStartX);
-    addch(ACS_LLCORNER);
-    addch(ACS_HLINE);
-    addch(ACS_HLINE);
-    addch(ACS_HLINE);
-    addch(ACS_HLINE);
-    addch(ACS_LRCORNER);
+  for (int col = 0; col < 4; col++) {
+    for (int row = 0; row < 4; row++) {
+      Tile currentTile = playGrid.tileAt(col, row);
+      currentTile.draw();
+    }
   }
 
   refresh();
