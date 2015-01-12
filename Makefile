@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-Wall -g -O
+CFLAGS=-std=c++0x -Wall -g -O
 LFLAGS=-lncurses
 
 all: 2048
