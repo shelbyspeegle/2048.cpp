@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <ncurses.h>
+#include "Tile.h"
 using namespace std;
 
 #define NUM_TILES 16
@@ -30,91 +31,7 @@ void printBoard();
 void printGameOverMessage();
 void setup();
 void finish();
-
-class Tile {
-  public:
-    int x;
-    int y;
-
-    Tile(){
-      this->setValue( 0 );
-    }
-
-    Tile( int value ){
-      this->setValue( value );
-    }
-
-    int getValue() {
-      return this->value;
-    }
-
-    void setValue( int value ) {
-      this->value = value;
-    }
-
-    Tile copy() {
-      Tile t;
-      t.setValue( this->getValue() );
-      t.x = this->x;
-      t.y = this->y;
-      return t;
-    }
-
-    void draw(){
-      int squareStartY = START_LINE + this->y*3;
-      int squareStartX = boardStartX + this->x*6;
-
-      move(squareStartY, squareStartX);
-      addch(ACS_ULCORNER);
-      addch(ACS_HLINE);
-      addch(ACS_HLINE);
-      addch(ACS_HLINE);
-      addch(ACS_HLINE);
-      addch(ACS_URCORNER);
-      mvaddch(squareStartY +1, squareStartX, ACS_VLINE);
-
-      mvprintw(squareStartY +1, squareStartX +1, "%s", this->toString().c_str());
-      mvaddch(squareStartY +1, squareStartX +5, ACS_VLINE);
-      move(squareStartY +2, squareStartX);
-      addch(ACS_LLCORNER);
-      addch(ACS_HLINE);
-      addch(ACS_HLINE);
-      addch(ACS_HLINE);
-      addch(ACS_HLINE);
-      addch(ACS_LRCORNER);
-    }
-
-    string toString() {
-      string returnString = "    ";
-
-      if (this->value != 0) {
-        string str = to_string(this->value);
-
-        switch (str.length()) {
-          case 4:
-            returnString[0] = str[0];
-            returnString[1] = str[1];
-            returnString[2] = str[2];
-            returnString[3] = str[3];
-            break;
-          case 3:
-            returnString[3] = str[2];
-          case 2:
-            returnString[2] = str[1];
-          case 1:
-            returnString[1] = str[0];
-            break;
-          default:
-            break;
-        }
-      }
-
-      return returnString;
-    }
-
-  private:
-    int value;
-};
+void drawTile( Tile *tile );
 
 class Grid {
   public:
@@ -459,7 +376,7 @@ void printBoard() {
   for (int col = 0; col < 4; col++) {
     for (int row = 0; row < 4; row++) {
       Tile currentTile = playGrid.tileAt(col, row);
-      currentTile.draw();
+      drawTile( &currentTile );
     }
   }
 
@@ -488,4 +405,30 @@ void finish() {
   fclose(f);
 
   endwin(); // End ncurses mode
+}
+
+void drawTile( Tile *tile ) {
+
+  int squareStartY = START_LINE + tile->y*3;
+  int squareStartX = boardStartX + tile->x*6;
+
+  move(squareStartY, squareStartX);
+  addch(ACS_ULCORNER);
+  addch(ACS_HLINE);
+  addch(ACS_HLINE);
+  addch(ACS_HLINE);
+  addch(ACS_HLINE);
+  addch(ACS_URCORNER);
+  mvaddch(squareStartY +1, squareStartX, ACS_VLINE);
+
+  mvprintw(squareStartY +1, squareStartX +1, "%s", tile->toString().c_str());
+  mvaddch(squareStartY +1, squareStartX +5, ACS_VLINE);
+  move(squareStartY +2, squareStartX);
+  addch(ACS_LLCORNER);
+  addch(ACS_HLINE);
+  addch(ACS_HLINE);
+  addch(ACS_HLINE);
+  addch(ACS_HLINE);
+  addch(ACS_LRCORNER);
+
 }

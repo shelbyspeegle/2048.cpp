@@ -1,13 +1,17 @@
 CC=g++
 CFLAGS=-Wall -g -O
 LFLAGS=-lncurses
-PROGS=2048
 
-all: $(PROGS)
+all: 2048
 
-2048: 2048.o
+Tile.o: Tile.cpp Tile.h
+	$(CC) $(CFLAGS) -c Tile.cpp
+
+main.o: main.cpp
+	$(CC) $(CFLAGS) -c main.cpp
+
+2048: main.o Tile.o
 	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
 
 clean:
-	/bin/rm -f $(PROGS) *.o a.out *.d
-	/bin/rm -fr *.dSYM
+	/bin/rm -fr 2048 *.o
