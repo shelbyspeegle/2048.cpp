@@ -45,16 +45,16 @@ int main(int argc, const char * argv[]) {
       case 'r':
         newGame();
         break;
-      case KEY_RIGHT:
+      case Interface::RIGHT:
         playGrid.shift(0);
         break;
-      case KEY_UP:
+      case Interface::UP:
         playGrid.shift(1);
         break;
-      case KEY_LEFT:
+      case Interface::LEFT:
         playGrid.shift(2);
         break;
-      case KEY_DOWN:
+      case Interface::DOWN:
         playGrid.shift(3);
         break;
       default:
@@ -112,11 +112,6 @@ void newGame() {
 void setup() {
   loadScoreData();
 
-  initscr(); // Start ncurses mode
-  noecho(); // Silence user input
-  curs_set(0); // Hide the cursor
-  keypad( stdscr, TRUE ); // Converts arrow key input to usable chars
-
   playGrid.initialize();
 }
 
@@ -131,5 +126,5 @@ void finish() {
   fprintf(f, "%i", highScore);
   fclose(f);
 
-  endwin(); // End ncurses mode
+  interface.close();
 }

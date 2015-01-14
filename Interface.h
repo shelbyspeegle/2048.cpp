@@ -4,17 +4,24 @@
 #include "Grid.h"
 #include <ncurses.h>
 
+#define START_LINE 3
+
 class Interface {
 
 public:
-    int boardStartX;
-    Grid *playGrid;
+    const static int RIGHT = KEY_RIGHT;
+    const static int UP = KEY_UP;
+    const static int LEFT = KEY_LEFT;
+    const static int DOWN = KEY_DOWN;
 
     Interface( Grid *grid );
-
-    void initialize( Grid *grid );
     void printGameOverMessage();
     void printBoard( int score, int highScore );
     void drawTile( Tile *tile );
+    void close();
+
+private:
+    int boardStartX;
+    Grid *playGrid;
 };
 #endif

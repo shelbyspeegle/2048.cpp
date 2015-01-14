@@ -2,10 +2,13 @@
 
 using namespace std;
 
-const int START_LINE = 3;
-
 Interface::Interface( Grid *grid ) {
     playGrid = grid;
+
+    initscr(); // Start ncurses mode
+    noecho(); // Silence user input
+    curs_set(0); // Hide the cursor
+    keypad( stdscr, TRUE ); // Converts arrow key input to usable chars.
 }
 
 void Interface::printGameOverMessage() {
@@ -89,4 +92,8 @@ void Interface::drawTile( Tile *tile ) {
     addch(ACS_HLINE);
     addch(ACS_HLINE);
     addch(ACS_LRCORNER);
+}
+
+void Interface::close() {
+    endwin(); // End ncurses mode
 }
