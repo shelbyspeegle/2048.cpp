@@ -10,10 +10,13 @@ Tile.o: Tile.cpp Tile.h
 Grid.o: Grid.cpp Grid.h
 	$(CC) $(CFLAGS) -c Grid.cpp
 
+Interface.o: Interface.cpp Interface.h
+	$(CC) $(CFLAGS) -c Interface.cpp
+
 main.o: main.cpp
 	$(CC) $(CFLAGS) -c main.cpp
 
-2048: main.o Tile.o Grid.o
+2048: main.o Tile.o Grid.o Interface.o
 	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
 
 clean:
