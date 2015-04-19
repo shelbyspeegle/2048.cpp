@@ -14,37 +14,33 @@ Interface::Interface( Grid *grid ) {
 }
 
 void Interface::printGameOverMessage() {
+    int currentLine = START_LINE + 3;
+
+    std::string lines[] = {
+            "      Game over!      ",
+            "                      ",
+            " Press r for new game ",
+            " or q to quit.        "
+    };
+
     boardStartX = getmaxx(stdscr)/2 - 12;
 
-    move( START_LINE + 3, boardStartX );
+    move( currentLine++, boardStartX );
     addch(ACS_ULCORNER);
-
     for (int i = 0; i < 22; i++) {
         addch(ACS_HLINE);
     }
     addch(ACS_URCORNER);
 
-    move( START_LINE + 4, boardStartX );
-    addch(ACS_VLINE);
-    mvprintw(START_LINE + 4, boardStartX + 1, "      Game over!      ");
-    addch(ACS_VLINE);
 
-    move( START_LINE + 5, boardStartX );
-    addch(ACS_VLINE);
-    mvprintw(START_LINE + 5, boardStartX + 1, "                      ");
-    addch(ACS_VLINE);
+    for (int i = 0; i < 4; i++) {
+        move( currentLine, boardStartX );
+        addch(ACS_VLINE);
+        mvprintw( currentLine++, boardStartX + 1, lines[i].c_str() );
+        addch(ACS_VLINE);
+    }
 
-    move( START_LINE + 6, boardStartX );
-    addch(ACS_VLINE);
-    mvprintw(START_LINE + 6, boardStartX + 1, " Press r for new game ");
-    addch(ACS_VLINE);
-
-    move( START_LINE + 7, boardStartX );
-    addch(ACS_VLINE);
-    mvprintw(START_LINE + 7, boardStartX + 1, " or q to quit.        ");
-    addch(ACS_VLINE);
-
-    move( START_LINE + 8, boardStartX );
+    move( currentLine, boardStartX );
     addch(ACS_LLCORNER);
     for (int i = 0; i < 22; i++) {
         addch(ACS_HLINE);

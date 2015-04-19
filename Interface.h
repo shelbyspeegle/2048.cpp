@@ -4,6 +4,7 @@
 #include "Grid.h"
 #include <ncurses.h>
 #include <map>
+#include <string.h>
 
 #define START_LINE 3
 
