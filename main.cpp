@@ -5,11 +5,7 @@
  *      Author: shelbyspeegle
  */
 
-
-#include <iostream>
 #include "Game.h"
-
-using namespace std;
 
 int main(int argc, const char * argv[]) {
     Game game = Game();

@@ -1,7 +1,5 @@
 #include "Interface.h"
 
-using namespace std;
-
 // TODO: See if terminal can handle colors.
 // TODO: See if terminal can handle CHANGING colors.
 // TODO: Change colors to match web version.

@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Tile.h"
-using namespace std;
 
 Tile::Tile(){
   this->setValue( 0 );
@@ -26,11 +25,11 @@ void Tile::setValue( int value ) {
   this->value = value;
 }
 
-string Tile::toString() {
-  string returnString = "    ";
+std::string Tile::toString() {
+  std::string returnString = "    ";
 
   if (this->value != 0) {
-    string str = to_string(this->value);
+    std::string str = std::to_string(this->value);
 
     switch (str.length()) {
       case 4:

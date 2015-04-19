@@ -4,6 +4,7 @@
 #include <string>
 
 class Tile {
+
 public:
   int x;
   int y;
