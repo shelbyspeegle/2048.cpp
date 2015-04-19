@@ -16,17 +16,17 @@ void Game::start() {
 
     this->newGame();
 
-    bool playing = true;
-
-    while (playing) {
+    while (true) {
         int uInput = getch();
 
         if ( interface.inputIsDirectional(uInput)) {
             this->playGrid.shift( interface.uInputMap[uInput] );
         } else if (uInput == 'q') {
-            playing = false;
+            this->finish();
+            return;
         } else if (uInput == 'r') {
             this->newGame();
+            continue;
         } else {
             continue;
         }
@@ -43,15 +43,12 @@ void Game::start() {
                     this->newGame();
                     break;
                 } else if (uInput == 'q') {
-                    playing = false;
-                    break;
-                } else {; // Invalid user input. Ignore.
+                    this->finish();
+                    return;
                 }
             }
         }
     }
-
-    this->finish();
 }
 
 void Game::loadScoreData() {
