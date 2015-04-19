@@ -2,6 +2,10 @@
 
 using namespace std;
 
+// TODO: See if terminal can handle colors.
+// TODO: See if terminal can handle CHANGING colors.
+// TODO: Change colors to match web version.
+
 Interface::Interface( Grid *grid ) {
     playGrid = grid;
 
@@ -96,4 +100,8 @@ void Interface::drawTile( Tile *tile ) {
 
 void Interface::close() {
     endwin(); // End ncurses mode
+}
+
+bool Interface::inputIsDirectional( int uInput ) {
+    return ( uInput == KEY_RIGHT || uInput == KEY_UP || uInput == KEY_LEFT || uInput == KEY_DOWN );
 }

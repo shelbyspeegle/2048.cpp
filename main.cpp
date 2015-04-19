@@ -7,124 +7,13 @@
 
 
 #include <iostream>
-#include <ncurses.h>
-#include "Interface.h"
+#include "Game.h"
+
 using namespace std;
 
-// TODO: Handle win case.
-// TODO: See if terminal can handle colors.
-// TODO: See if terminal can handle CHANGING colors.
-// TODO: Change colors to match web version.
-
-int highScore = 0;
-FILE *f;
-Grid playGrid;
-Interface interface(&playGrid);
-
-bool gameOver();
-void loadScoreData();
-void newGame();
-void setup();
-void finish();
-
 int main(int argc, const char * argv[]) {
-  srand( (unsigned) time(0) ); // Seed rand with this so it is more random
+    Game game = Game();
+    game.start();
 
-  setup();
-  newGame();
-
-  bool playing = true;
-
-  while( playing ) {
-    int uInput = getch();
-
-    switch (uInput) {
-      case 'q':
-        playing = false;
-        break;
-      case 'r':
-        newGame();
-        break;
-      case Interface::RIGHT:
-        playGrid.shift(0);
-        break;
-      case Interface::UP:
-        playGrid.shift(1);
-        break;
-      case Interface::LEFT:
-        playGrid.shift(2);
-        break;
-      case Interface::DOWN:
-        playGrid.shift(3);
-        break;
-      default:
-        break;
-    }
-
-    interface.printBoard( playGrid.getScore(), highScore );
-
-    if ( gameOver() ) {
-      interface.printGameOverMessage();
-
-      while ( true ) {
-        uInput = getch();
-
-        if (uInput == 'r') {
-          newGame();
-          break;
-        } else if (uInput == 'q') {
-          playing = false;
-          break;
-        } else {
-          ; // Invalid user input. Ignore.
-        }
-      }
-    }
-  }
-
-  finish();
-
-  exit( EXIT_SUCCESS );
-}
-
-void loadScoreData() {
-  f = fopen(".scores", "r");
-
-  if (f) {
-    char line[256];
-    if ( fgets(line, sizeof(line), f) ) {
-      highScore = atoi(line);
-      fclose(f);
-      f = NULL;
-    }
-  }
-}
-
-void newGame() {
-  playGrid.clear();
-
-  playGrid.initializeFreeTile(2);
-  playGrid.initializeFreeTile(2);
-
-  interface.printBoard( playGrid.getScore(), highScore );
-}
-
-void setup() {
-  loadScoreData();
-
-  playGrid.initialize();
-}
-
-bool gameOver() {
-  return playGrid.isFull() && !playGrid.tilePairsExist();
-}
-
-void finish() {
-  highScore = playGrid.getScore() > highScore ? playGrid.getScore() : highScore;
-
-  f = fopen(".scores", "w");
-  fprintf(f, "%i", highScore);
-  fclose(f);
-
-  interface.close();
+    exit( EXIT_SUCCESS );
 }

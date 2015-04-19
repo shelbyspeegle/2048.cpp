@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Grid.h"
-using namespace std;
 
 #define NUM_TILES 16
 
@@ -189,17 +188,16 @@ void Grid::initializeFreeTile( int value ){
 }
 
 Tile * Grid::randomFreeTile(){
-    int searchCount = 0;
+    if ( this->isFull() ) {
+        return nullptr;
+    }
+
     while ( true ) {
         int randomRow = rand() % 4;
         int randomCol = rand() % 4;
 
         if ( this->board[randomRow][randomCol].getValue() == 0 ) {
             return &board[randomRow][randomCol];
-        }
-
-        if (searchCount++ == NUM_TILES) {
-            return nullptr;
         }
     }
 }
