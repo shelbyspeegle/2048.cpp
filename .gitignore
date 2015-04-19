@@ -1,3 +1,4 @@
 *.o
 /.idea/*
 .scores
+2048
