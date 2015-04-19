@@ -9,8 +9,6 @@ Game::Game() {
 
 void Game::setup() {
     loadScoreData();
-
-    playGrid.initialize();
 }
 
 void Game::start() {

@@ -7,7 +7,6 @@ class Grid {
 
 public:
     Grid();
-    void initialize();
     void clear();
     Tile tileAt( int col, int row );
     void rotateCCW();

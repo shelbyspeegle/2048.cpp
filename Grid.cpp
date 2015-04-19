@@ -5,9 +5,7 @@
 
 Grid::Grid(){
     clear();
-};
 
-void Grid::initialize() {
     for(int i = 0; i < 4; i++) {
         for(int j = 0; j < 4; j++) {
             Tile t = Tile(0);
@@ -16,7 +14,7 @@ void Grid::initialize() {
             board[i][j] = t;
         }
     }
-}
+};
 
 void Grid::clear() {
     score = 0;
