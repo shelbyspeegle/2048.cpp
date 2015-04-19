@@ -19,7 +19,7 @@ public:
 
     Interface( Grid *grid );
     void printGameOverMessage();
-    void printBoard( int score, int highScore );
+    void printBoard( int highScore );
     void drawTile( Tile *tile );
     void close();
     static bool inputIsDirectional( int uInput );

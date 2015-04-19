@@ -31,7 +31,7 @@ void Game::start() {
             continue;
         }
 
-        this->interface.printBoard(this->playGrid.getScore(), this->highScore);
+        this->interface.printBoard(this->highScore);
 
         if (this->gameOver()) {
             this->interface.printGameOverMessage();
@@ -70,7 +70,7 @@ void Game::newGame() {
     playGrid.initializeFreeTile(2);
     playGrid.initializeFreeTile(2);
 
-    interface.printBoard(playGrid.getScore(), highScore);
+    interface.printBoard(highScore);
 }
 
 bool Game::gameOver() {

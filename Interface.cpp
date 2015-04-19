@@ -54,13 +54,13 @@ void Interface::printGameOverMessage() {
     refresh();
 }
 
-void Interface::printBoard( int score, int highScore ) {
+void Interface::printBoard( int highScore ) {
     clear();
 
     boardStartX = getmaxx(stdscr)/2 - 12;
 
-    mvprintw( 0, boardStartX + 10, "Score: %6i", score );
-    mvprintw( 1, boardStartX + 1, "2048      Best: %6i", highScore);
+    mvprintw( 0, boardStartX + 10, "Score: %6i", playGrid->getScore() );
+    mvprintw( 1, boardStartX + 1, "2048      Best: %6i", highScore );
 
     for (int col = 0; col < 4; col++) {
         for (int row = 0; row < 4; row++) {
