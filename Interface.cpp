@@ -1,5 +1,7 @@
 #include "Interface.h"
 
+#define DISPLAY_WIDTH 24
+
 // TODO: See if terminal can handle colors.
 // TODO: See if terminal can handle CHANGING colors.
 // TODO: Change colors to match web version.
@@ -23,11 +25,11 @@ void Interface::printGameOverMessage() {
             " or q to quit.        "
     };
 
-    boardStartX = getmaxx(stdscr)/2 - 12;
+    boardStartX = getmaxx(stdscr)/2 - DISPLAY_WIDTH/2;
 
     move( currentLine++, boardStartX );
     addch(ACS_ULCORNER);
-    for (int i = 0; i < 22; i++) {
+    for (int i = 0; i < DISPLAY_WIDTH-2; i++) {
         addch(ACS_HLINE);
     }
     addch(ACS_URCORNER);
@@ -42,7 +44,7 @@ void Interface::printGameOverMessage() {
 
     move( currentLine, boardStartX );
     addch(ACS_LLCORNER);
-    for (int i = 0; i < 22; i++) {
+    for (int i = 0; i < DISPLAY_WIDTH-2; i++) {
         addch(ACS_HLINE);
     }
     addch(ACS_LRCORNER);
@@ -53,7 +55,7 @@ void Interface::printGameOverMessage() {
 void Interface::printBoard( int highScore ) {
     clear();
 
-    boardStartX = getmaxx(stdscr)/2 - 12;
+    boardStartX = getmaxx(stdscr)/2 - DISPLAY_WIDTH/2;
 
     mvprintw( 0, boardStartX + 10, "Score: %6i", playGrid->getScore() );
     mvprintw( 1, boardStartX + 1, "2048      Best: %6i", highScore );
