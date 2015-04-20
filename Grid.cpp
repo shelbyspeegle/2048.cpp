@@ -24,7 +24,6 @@ void Grid::clear() {
             this->tileAt(i, j).setValue(0);
         }
     }
-    numOccupiedTiles = 0;
 }
 
 Tile Grid::tileAt(int col, int row) {
@@ -131,6 +130,18 @@ bool Grid::shiftRight() {
     return false; // No change happened.
 }
 
+int Grid::getNumOccupiedTiles() {
+    int numOccupiedTiles = 0;
+    for (int y = 0; y < 4; y++) {
+        for (int x = 0; x < 4; x++) {
+            if (board[x][y].getValue() != 0) {
+                numOccupiedTiles++;
+            }
+        }
+    }
+    return numOccupiedTiles;
+}
+
 bool Grid::checkNeighborsForMatch( int col, int row ){
     // Check East.
     if ( col < 3 ) {
@@ -163,7 +174,7 @@ bool Grid::checkNeighborsForMatch( int col, int row ){
 }
 
 bool Grid::isFull() {
-    return numOccupiedTiles == NUM_TILES;
+    return this->getNumOccupiedTiles() == NUM_TILES;
 }
 
 int Grid::tilePairsExist(){

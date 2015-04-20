@@ -13,6 +13,7 @@ public:
     void shift( int direction );
     bool shiftRight();
     bool checkNeighborsForMatch( int col, int row );
+    int getNumOccupiedTiles();
     bool isFull();
     int tilePairsExist();
     void initializeFreeTile( int value );
@@ -21,7 +22,6 @@ public:
 private:
     int score;
     Tile board[4][4];
-    int numOccupiedTiles;
 
     Tile * randomFreeTile();
 };
