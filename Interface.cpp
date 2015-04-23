@@ -15,15 +15,19 @@ Interface::Interface( Grid *grid ) {
     keypad( stdscr, TRUE ); // Converts arrow key input to usable chars.
 }
 
-void Interface::printGameOverMessage() {
+void Interface::printEndMessage( bool gameOver ) {
     int currentLine = START_LINE + 3;
 
     std::string lines[] = {
-            "      Game over!      ",
+            "       You win!       ",
             "                      ",
             " Press r for new game ",
             " or q to quit.        "
     };
+
+    if ( gameOver ) {
+        lines[0] = "      Game over!      ";
+    }
 
     boardStartX = getmaxx(stdscr)/2 - DISPLAY_WIDTH/2;
 

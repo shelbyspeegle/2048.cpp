@@ -19,7 +19,7 @@ public:
     };
 
     Interface( Grid *grid );
-    void printGameOverMessage();
+    void printEndMessage( bool gameOver );
     void printBoard( int highScore );
     void drawTile( Tile *tile );
     void close();

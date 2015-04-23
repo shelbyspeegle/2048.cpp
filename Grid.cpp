@@ -214,3 +214,15 @@ Tile * Grid::randomFreeTile(){
 int Grid::getScore() {
     return score;
 }
+
+bool Grid::gridContains2048Tile() {
+    for (int y = 0; y < 4; y++) {
+        for (int x = 0; x < 4; x++) {
+            if (board[x][y].getValue() == 2048) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}

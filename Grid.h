@@ -18,6 +18,7 @@ public:
     int tilePairsExist();
     void initializeFreeTile( int value );
     int getScore();
+    bool gridContains2048Tile();
 
 private:
     int score;

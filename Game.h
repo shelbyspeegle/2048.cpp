@@ -22,6 +22,7 @@ private:
     void newGame();
     void setup();
     void finish();
+    bool reached2048();
 };
 
 #endif

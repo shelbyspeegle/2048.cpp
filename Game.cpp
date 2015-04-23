@@ -1,6 +1,6 @@
 #import "Game.h"
 
-// TODO: Handle win case.
+// TODO: Let user continue playing after win.
 
 Game::Game() {
     playGrid = Grid();
@@ -33,8 +33,8 @@ void Game::start() {
 
         this->interface.printBoard(this->highScore);
 
-        if (this->gameOver()) {
-            this->interface.printGameOverMessage();
+        if ( this->gameOver() || this->reached2048() ) {
+            this->interface.printEndMessage( this->gameOver() );
 
             while (true) {
                 uInput = getch();
@@ -75,6 +75,10 @@ void Game::newGame() {
 
 bool Game::gameOver() {
     return playGrid.isFull() && !playGrid.tilePairsExist();
+}
+
+bool Game::reached2048() {
+    return playGrid.gridContains2048Tile();
 }
 
 void Game::finish() {
